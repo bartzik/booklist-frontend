@@ -121,7 +121,7 @@ const BookDetails: React.FC = () => {
               ? book.authors.map((author) => author.name).join(", ")
               : "Autores não disponíveis"}
           </p>
-          {book.summary ? <p>Resumo: {book.summary}</p> : <p>Resumo não disponível</p>}
+          {book.summary ? <p><b>Resumo:</b> {book.summary}</p> : <p>Resumo não disponível</p>}
         </div>
       </div>
 
