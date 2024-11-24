@@ -6,7 +6,7 @@ import api from "../services/api";
 interface Review {
   id: string;
   comment: string;
-  user: { name: string };
+  user?: { name?: string };
 }
 
 interface Author {
@@ -21,6 +21,7 @@ interface Book {
   summary: string | null;
   reviews: Review[];
   authors: Author[];
+  photoUrl?: string;
 }
 
 const BookDetails: React.FC = () => {
@@ -46,13 +47,11 @@ const BookDetails: React.FC = () => {
   const fetchReviews = async () => {
     try {
       const response = await api.get(`/booklist/reviews/${id}`);
-      console.log("Avaliações recebidas:", response.data); // Verifique o conteúdo da resposta
-      setReviews(response.data.reviews || response.data); 
-        } catch (error) {
+      setReviews(response.data.reviews || response.data);
+    } catch (error) {
       setError("Erro ao buscar avaliações");
     }
   };
-  
 
   useEffect(() => {
     fetchBookDetails();
@@ -79,11 +78,10 @@ const BookDetails: React.FC = () => {
         userId,
         bookId: id,
       });
-      console.log("Resposta do servidor após adicionar comentário:", response.data);
       setSuccess("Comentário adicionado com sucesso!");
       setError(null);
       setComment("");
-      fetchReviews(); // Atualiza as avaliações para incluir o novo comentário
+      fetchReviews();
     } catch {
       setError("Erro ao adicionar comentário. Tente novamente.");
       setSuccess(null);
@@ -95,15 +93,37 @@ const BookDetails: React.FC = () => {
 
   return (
     <div className="container">
-      <h2>{book.title}</h2>
-      <p>Publicado em: {book.publicationYear}</p>
-      <p>
-        Autor(es):{" "}
-        {book.authors && book.authors.length > 0
-          ? book.authors.map((author) => author.name).join(", ")
-          : "Autores não disponíveis"}
-      </p>
-      {book.summary ? <p>Resumo: {book.summary}</p> : <p>Resumo não disponível</p>}
+      <div style={{ display: "flex", alignItems: "flex-start", marginBottom: "20px" }}>
+        {/* Imagem do livro */}
+        {book.photoUrl && (
+          <img
+            src={
+              book.photoUrl.startsWith("http")
+                ? book.photoUrl
+                : `http://localhost:8080${book.photoUrl}`
+            }
+            alt={`Capa de ${book.title}`}
+            style={{
+              maxWidth: "150px",
+              maxHeight: "200px",
+              marginRight: "20px",
+              borderRadius: "8px",
+            }}
+          />
+        )}
+        {/* Informações do livro */}
+        <div>
+          <h2>{book.title}</h2>
+          <p>Publicado em: {book.publicationYear}</p>
+          <p>
+            Autor(es):{" "}
+            {book.authors && book.authors.length > 0
+              ? book.authors.map((author) => author.name).join(", ")
+              : "Autores não disponíveis"}
+          </p>
+          {book.summary ? <p>Resumo: {book.summary}</p> : <p>Resumo não disponível</p>}
+        </div>
+      </div>
 
       {/* Comentários */}
       <div className="mt-4">
@@ -121,7 +141,7 @@ const BookDetails: React.FC = () => {
           {reviews && reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className="card p-3 mb-2">
-                <h5>{review.userName || "Nome não disponível"}</h5>
+                <h5>{review.user?.name || "Usuário anônimo"}</h5>
                 <p>{review.comment}</p>
               </div>
             ))

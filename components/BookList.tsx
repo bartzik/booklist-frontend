@@ -48,6 +48,7 @@ const BookList: React.FC = () => {
               title={book.title}
               publicationYear={book.publicationYear}
               authors={book.authors}
+              photoUrl={book.photoUrl}
             />
           </div>
         ))}

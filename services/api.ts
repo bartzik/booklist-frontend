@@ -5,17 +5,6 @@ const api = axios.create({
   baseURL: "http://localhost:8080",
 });
 
-// Interceptor para adicionar o sessionId em cada requisição
-/**
-api.interceptors.request.use((config) => {
-  const sessionId = localStorage.getItem('sessionId'); // Obtém o sessionId do localStorage
-  if (sessionId) {
-    config.headers.Authorization = sessionId; // Adiciona o sessionId no cabeçalho
-  }
-  return config;
-});
-**/
-
 // Configura o interceptor para adicionar o sessionId no cabeçalho Authorization
 api.interceptors.request.use(
   (config) => {
@@ -33,5 +22,8 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+api.defaults.headers.post["Content-Type"] = "application/json";
+
 
 export default api;
