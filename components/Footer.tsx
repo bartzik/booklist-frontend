@@ -2,7 +2,7 @@
 
 export function Footer() {
   return (
-    <footer className="bg-light text-center text-lg-start mt-auto">
+    <footer className="bg-light text-center text-lg-start mt-auto" id="footer">
       <div className="container p-4">
         <div className="row">
           <div className="col-lg-6 col-md-12 mb-4 mb-md-0">

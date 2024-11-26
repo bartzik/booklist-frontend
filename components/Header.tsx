@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("sessionId") !== null;
-  const userType = localStorage.getItem("userType");
+  const userType = localStorage.getItem("userType"); // Pode ser "ADMIN" ou "READER"
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("sessionId");
     localStorage.removeItem("userType");
     navigate("/login");
   };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+  
 
   return (
     <header>
@@ -44,11 +53,33 @@ export function Header() {
                   </Link>
                 </li>
               )}
+              {userType === "READER" && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/reader-dashboard">
+                    Área do Leitor
+                  </Link>
+                </li>
+              )}
             </ul>
+            <form className="d-flex me-auto" onSubmit={handleSearch}>
+              <input
+                type="text"
+                className="form-control me-2"
+                placeholder="Pesquisar livros, autores ou editoras"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="btn btn-outline-dark">
+                Buscar
+              </button>
+            </form>
             <ul className="navbar-nav">
               {isLoggedIn ? (
                 <li className="nav-item">
-                  <button className="btn btn-link nav-link" onClick={handleLogout}>
+                  <button
+                    className="btn btn-link nav-link"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </button>
                 </li>

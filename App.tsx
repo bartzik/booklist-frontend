@@ -13,7 +13,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AuthorCadastroPage from "./pages/AuthorCadastroPage";
 import PublisherCadastroPage from "./pages/PublisherCadastroPage";
 import ReaderDashboard from "./pages/ReaderDashboard.tsx"; 
-
+import SearchResults from "./pages/SearchResults"; 
 
 const App: React.FC = () => {
   const isAdmin = localStorage.getItem("userType") === "ADMIN"; // Verifica se o usuário é ADMIN
@@ -31,6 +31,7 @@ const App: React.FC = () => {
         <Route path="/author-cadastro" element={<AuthorCadastroPage />} />
         <Route path="/publisher-cadastro" element={<PublisherCadastroPage />} />
         <Route path="/reader-dashboard" element={<ReaderDashboard />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
       <Footer />
     </Router>
