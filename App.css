@@ -1,0 +1,20 @@
+
+.app-container {
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh; 
+  }
+  
+  .content {
+    flex: 1; 
+    padding: 20px; 
+  }
+  
+  /* Footer estilizado */
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f9fa; /* Cor de fundo do Footer */
+    border-top: 1px solid #dee2e6; /* Linha acima do Footer */
+  }
+
