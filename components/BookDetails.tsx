@@ -141,7 +141,7 @@ const BookDetails: React.FC = () => {
           {reviews && reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review.id} className="card p-3 mb-2">
-                <h5>{review.user?.name || "Usuário anônimo"}</h5>
+                <h5>{review.userName || "Usuário anônimo"}</h5>
                 <p>{review.comment}</p>
               </div>
             ))

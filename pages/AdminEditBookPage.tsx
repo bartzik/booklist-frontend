@@ -24,7 +24,7 @@ const AdminEditBookPage: React.FC = () => {
   const [publisherId, setPublisherId] = useState<string>("");
   const [authors, setAuthors] = useState<Author[]>([]);
   const [publishers, setPublishers] = useState<Publisher[]>([]);
-  const [photo, setPhoto] = useState<File | null>(null); // Estado para armazenar a foto
+  const [photo, setPhoto] = useState<File | null>(null); 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -42,7 +42,7 @@ const AdminEditBookPage: React.FC = () => {
         setAuthorIds(authors.map((author: Author) => author.id));
         setPublisherId(publisher?.id || "");
         if (photoUrl) {
-          setPhoto(null); // Mantém nulo, pois não carregamos a foto para edição
+          setPhoto(null); 
         }
 
         const authorsResponse = await api.get("/booklist/authors");
@@ -63,33 +63,30 @@ const AdminEditBookPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    // Validação do campo publisherId
     if (!publisherId) {
       setError("Por favor, selecione uma editora.");
       return;
     }
   
     try {
-      // Cria o FormData para enviar os dados com a foto
       const formData = new FormData();
       formData.append("title", title);
       formData.append("publicationYear", publicationYear.toString());
       formData.append("summary", summary);
   
-      // Verifica se o campo de editora foi alterado
-      formData.append("publisherId", publisherId); // Usa o valor atual de publisherId
+      formData.append("publisherId", publisherId); 
   
       authorIds.forEach((authorId) =>
         formData.append("authorIds", authorId)
       );
   
       if (photo) {
-        formData.append("photo", photo); // Adiciona a foto se foi alterada
+        formData.append("photo", photo); 
       }
   
       await api.put(`/booklist/books/${id}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Define o tipo do conteúdo
+          "Content-Type": "multipart/form-data", 
         },
       });
       setSuccess("Livro atualizado com sucesso!");

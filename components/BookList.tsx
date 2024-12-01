@@ -1,4 +1,3 @@
-// src/components/BookList.tsx
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import BookCards from "./BookCards";

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 export function Header() {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("sessionId") !== null;
-  const userType = localStorage.getItem("userType"); // Pode ser "ADMIN" ou "READER"
+  const userType = localStorage.getItem("userType"); 
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleLogout = () => {

@@ -3,7 +3,7 @@ interface BookCardsProps {
   title: string;
   publicationYear: number;
   authors: Author[];
-  photoUrl?: string; // Campo opcional para a URL da foto
+  photoUrl?: string; 
 }
 
 const BookCards: React.FC<BookCardsProps> = ({
@@ -13,7 +13,7 @@ const BookCards: React.FC<BookCardsProps> = ({
   authors,
   photoUrl,
 }) => {
-  console.log(`Renderizando livro: ${title}, Foto: ${photoUrl}`); // Adiciona log para verificar a URL da foto
+  console.log(`Renderizando livro: ${title}, Foto: ${photoUrl}`);
   return (
     <div className="card" style={{ width: "18rem" }}>
       {/* Adiciona a foto do livro */}
@@ -27,9 +27,9 @@ const BookCards: React.FC<BookCardsProps> = ({
           className="card-img-top"
           alt={`Capa de ${title}`}
           style={{
-            width: "100%", // Largura total do card
-            height: "400px", // Altura fixa para todas as imagens
-            objectFit: "cover", // Ajusta a imagem sem distorcer
+            width: "100%",
+            height: "400px", 
+            objectFit: "cover", 
           }}
         />
       )}
